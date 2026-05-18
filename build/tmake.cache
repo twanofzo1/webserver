@@ -1,0 +1,12 @@
+[file]
+source=src/hashmap.c
+mtime=-4658522152970
+deps=
+dep_mtimes=
+
+[file]
+source=src/main.c
+mtime=-4658517917172
+deps=src/include/file.h;src/include/modern_types.h
+dep_mtimes=-4658518921813;-4658525006264
+

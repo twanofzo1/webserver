@@ -1,0 +1,82 @@
+/*
+tmake configuration file
+
+______________________________ Variables ____________________________
+
+var is used to declare a variable, the value can be a string, a list of strings, or a list of variables
+var variable_name = ["value1", "value2", "value3"]
+var variable_name = "value"
+
+
+____________________________ Built in functions ____________________________
+
+PROGRAM is a function that compiles the source files with the specified flags and outputs to the specified directory
+PROGRAM can be used multiple times to create multiple programs with different configurations
+PROGRAM(program_name, files, flags, output_dir, links, include_directories) 
+
+COMPILER is a function that sets the compiler to be used can be excluded, default is g++
+COMPILER(compiler) 
+
+VERSION is a function that sets the C++ language standard version to be used, can be excluded, default is 17
+VERSION(version)
+
+PRINT is a function that prints a message to the console, can be used for debugging or informational purposes
+PRINT(message)
+
+
+More info: https://github.com/twanofzo1/build_system/tree/main
+*/
+
+
+
+
+// List of source files to be compiled
+// "src/**.cpp"   can be used to include all cpp files in the src directory and its subdirectories
+// "src/*.cpp"    can be used to include all cpp files in the src directory
+// "src/test.cpp" can be used to include a specific file
+var files = [
+    "src/**.c"
+]
+
+// List of flags for debug mode
+var debug_flags = [
+    "-Wall",
+    "-Wextra",
+    "-DDEBUG"
+]
+
+// List of flags for release mode
+var release_flags = [
+    "-O3",
+    "-DNDEBUG"
+]
+
+// The name of the output file and the output directory
+var program_name = "my_program"
+var output_directory = "./bin"
+var links = [
+    ""
+]
+var include_directories = [
+    "src"
+]
+
+// Set the compiler to be used
+var compiler = "gcc"
+COMPILER(compiler)
+// Set the C language standard version to be used
+VERSION("11")
+LANGUAGE("c")
+
+// tmake config debug->
+if "$1" == "debug" {
+    PROGRAM(program_name, files, debug_flags, output_directory, links, include_directories)
+}
+// tmake config release->
+else if "$1" == "release" {
+    PROGRAM(program_name, files, release_flags, output_directory, links, include_directories)
+}
+// tmake config ... ->
+else {
+    PRINT("Invalid build mode. Use 'debug' or 'release'.")
+}
